@@ -1,0 +1,2 @@
+# tokulib-req
+Amazonページからtokulibにリクエスト送れるGoogle拡張機能
