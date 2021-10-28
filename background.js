@@ -12,6 +12,9 @@ chrome.action.onClicked.addListener((tab) => { // tab? 多分今開いている�
     target: {tabId: tab.id},
     files: ['content.js']
   });
+  // var newURL = "http://stackoverflow.com/"; // ここを図書リクエストのページにする
+  // chrome.tabs.create({ url: newURL }); // 新しいタブで開く
+  console.log(tab)
 });
 
 // // Regex-pattern to check URLs against. 
