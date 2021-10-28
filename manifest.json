@@ -1,0 +1,21 @@
+{
+    "name": "拡張機能テスト",
+    "action": {},
+    "manifest_version": 3,
+    "version": "0.1",
+    "description": "Amazonページから、リクエストを自動で作るよ",
+    "permissions": [
+      "activeTab",
+      "scripting",
+      "contextMenus"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "icons": {
+        "16": "/images/16.png",
+        "32": "/images/32.png",
+        "48": "/images/48.png",
+        "128": "/images/128.png"
+    }
+  }  
