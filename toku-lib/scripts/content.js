@@ -5,7 +5,7 @@ if (openedUrl.startsWith("https://www.amazon.co.jp/")) {
     if (subBar) {
         const productAttribute = subBar.getAttribute("data-category");
         // 本ジャンル
-        if (productAttribute == "books"){
+        if (productAttribute == "books" && document.getElementById("productTitle")){
             // 本情報読み取り
             let bookInfo = {};
             bookInfo.title = document.getElementById("productTitle").innerText;
