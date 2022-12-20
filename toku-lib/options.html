@@ -5,24 +5,28 @@
 </head>
 <body>
 
-デフォルトの設定:
+<h2>デフォルト設定の編集</h2>
 <div>
-<p>受け取り館</p>
+  <h3><p>受取館</p></h3>
   <p>
-<select id="campus">
- <option value="0">常三島地区 / 本館</option>
- <option value="1">蔵本地区 / 蔵本分館</option>
-</select>
-</p>
+  <select id="campus">
+    <option value="0">常三島地区 / 本館</option>
+    <option value="1">蔵本地区 / 蔵本分館</option>
+  </select>
+  </p>
 </div>
 
 <div>
-  <p>通信欄</p>
-<p><input type="textbox" id="message"></p>
+  <h3><p>通信欄</p></h3>
+  <p><input type="checkbox" id="islink">リクエストする本のAmazonリンクを挿入する</p>
+  <div>
+    <p><input type="checkbox" id="ismessage">末尾に以下のテキストを追加する：</p>
+    <p><textarea id="message"></textarea></p>
+  </div>
 </div>
 
 <div id="status"></div>
-<button id="save">Save</button>
+<button id="save">保存</button>
 
 <script src="options.js"></script>
 </body>
