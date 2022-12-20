@@ -1,0 +1,15 @@
+{
+  "name": "tokuLibReqAmazon",
+  "description": "tokuLibReqAmazon",
+  "version": "1.0",
+  "manifest_version": 3,
+  "content_scripts": [
+    {
+      "js": ["scripts/content.js"],
+      "matches": [
+        "https://www.amazon.co.jp/*",
+        "https://opac.lib.tokushima-u.ac.jp/opac/user/purchase_requests/new"
+      ]
+    }
+  ]
+}
