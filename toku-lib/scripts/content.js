@@ -1,33 +1,34 @@
 const openedUrl = location.href
 if (openedUrl.startsWith("https://www.amazon.co.jp/")) {
     const subBar = document.getElementById("nav-subnav")
-    const productAttribute = subBar.getAttribute("data-category");
-
-    if (productAttribute == "books"){
-        let bookInfo = {};
-        bookInfo.title = document.getElementById("productTitle").innerText;
-        bookInfo.author = document.getElementsByClassName("contributorNameID")[0].innerText;
-        bookInfo.asin = document.getElementById('ASIN').value;
-    
-        // 登録情報部分
-        const detailWrapper = document.getElementById("detailBulletsWrapper_feature_div");
-        if (detailWrapper) {
-            for (const item of detailWrapper.getElementsByClassName("a-list-item")) {
-                if (item.innerHTML.includes("出版社")) bookInfo.publisher = item.children[1].innerText;
-                else if (item.innerHTML.includes("発売日")) bookInfo.publishDate = item.children[1].innerText;
-                else if (item.innerHTML.includes("ISBN-10")) bookInfo.isbn10 = item.children[1].innerText;
-                else if (item.innerHTML.includes("ISBN-13")) bookInfo.isbn13 = item.children[1].innerText;
+    if (subBar) {
+        const productAttribute = subBar.getAttribute("data-category");
+        if (productAttribute == "books"){
+            let bookInfo = {};
+            bookInfo.title = document.getElementById("productTitle").innerText;
+            bookInfo.author = document.getElementsByClassName("contributorNameID")[0].innerText;
+            bookInfo.asin = document.getElementById('ASIN').value;
+        
+            // 登録情報部分
+            const detailWrapper = document.getElementById("detailBulletsWrapper_feature_div");
+            if (detailWrapper) {
+                for (const item of detailWrapper.getElementsByClassName("a-list-item")) {
+                    if (item.innerHTML.includes("出版社")) bookInfo.publisher = item.children[1].innerText;
+                    else if (item.innerHTML.includes("発売日")) bookInfo.publishDate = item.children[1].innerText;
+                    else if (item.innerHTML.includes("ISBN-10")) bookInfo.isbn10 = item.children[1].innerText;
+                    else if (item.innerHTML.includes("ISBN-13")) bookInfo.isbn13 = item.children[1].innerText;
+                }
             }
-        }
-        const tokuLibLink = document.createElement("div");
-        tokuLibLink.id = "tokuLibLink";
-        // tokuLibLink.className = "testClass"
-        const bookInfoQuery = new URLSearchParams(bookInfo).toString();
-        const bookInfoUrl = "https://opac.lib.tokushima-u.ac.jp/opac/user/purchase_requests/new?" + bookInfoQuery
-        tokuLibLink.innerHTML = `<a href=${bookInfoUrl}>この本を徳島大学図書館でリクエスト</a>`;
+            const tokuLibLink = document.createElement("div");
+            tokuLibLink.id = "tokuLibLink";
+            // tokuLibLink.className = "testClass"
+            const bookInfoQuery = new URLSearchParams(bookInfo).toString();
+            const bookInfoUrl = "https://opac.lib.tokushima-u.ac.jp/opac/user/purchase_requests/new?" + bookInfoQuery
+            tokuLibLink.innerHTML = `<a href=${bookInfoUrl}>🏫この本を徳島大学図書館でリクエスト</a>`;
 
-        const mediaMatrix = document.getElementById("MediaMatrix");
-        mediaMatrix.insertAdjacentElement("afterend", tokuLibLink)
+            const mediaMatrix = document.getElementById("MediaMatrix");
+            mediaMatrix.insertAdjacentElement("afterend", tokuLibLink)
+        }
     }
 }
 else if (openedUrl.startsWith("https://opac.lib.tokushima-u.ac.jp/opac/user/purchase_requests/new")) {
