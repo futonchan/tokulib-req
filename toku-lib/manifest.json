@@ -8,8 +8,14 @@
       "js": ["scripts/content.js"],
       "matches": [
         "https://www.amazon.co.jp/*",
-        "https://opac.lib.tokushima-u.ac.jp/opac/user/purchase_requests/new"
+        "https://opac.lib.tokushima-u.ac.jp/opac/user/purchase_requests/new*"
       ]
     }
-  ]
+  ],
+  "icons": {
+    "16": "images/16.png",
+    "32": "images/32.png",
+    "48": "images/48.png",
+    "128": "images/128.png"
+  }
 }
