@@ -47,18 +47,22 @@ else if (openedUrl.startsWith("https://opac.lib.tokushima-u.ac.jp/opac/user/purc
         const formIsbn = document.getElementById("order_form_sb");
         formIsbn.value = params.get("isbn13").replace("-", "");
 
-        let isInputCommunicate = true; // 通信欄に記載するか Optionページから変更
-        if (isInputCommunicate) {
-            const bookUrl = "https://www.amazon.co.jp/dp/" + params.get("asin");
-            let userSetStr = ""; // 通信欄に毎回書く内容
+        const bookUrl = "https://www.amazon.co.jp/dp/" + params.get("asin");
+        const formCommunicate = document.getElementById("order_form_nbu");
+        formCommunicate.value = "Amazon URL: " + bookUrl + "\n";
 
-            const formCommunicate = document.getElementById("order_form_nbu");
-            formCommunicate.value = "Amazon URL: " + bookUrl;
-        }
+        chrome.storage.sync.get("communicateMessage", function(items) {
+            let userSetStr = items.communicateMessage;
+            formCommunicate.value += userSetStr;
+        });
     }
 
     const selectReceiveCampus = document.getElementById("order_form_ax");
-    let campusNum = 0; // 0: 常三島 本館, 1: 蔵本 蔵本分館. Optionページから変更.
-    const optionElm = selectReceiveCampus.querySelector(`option[value="${campusNum}"]`);
-    optionElm.selected = true;
+    
+    chrome.storage.sync.get("receiveCampus", function(items) {
+        let campusNum = items.receiveCampus; // "0": 常三島 本館, "1": 蔵本 蔵本分館. Optionページから変更.
+        console.log(campusNum)
+        const optionElm = selectReceiveCampus.querySelector(`option[value="${campusNum}"]`);
+        optionElm.selected = true;
+    });
 }
