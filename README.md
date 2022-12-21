@@ -1,6 +1,7 @@
 # tokulib-req
 Amazonページからtokulibにリクエスト送れるGoogle拡張機能
 
+![demo](output.gif)
 
 # 必要な情報
 ### チェック付きは取得済み
