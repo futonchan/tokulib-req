@@ -1,6 +1,6 @@
 {
-  "name": "tokuLibReqAmazon",
-  "description": "tokuLibReqAmazon",
+  "name": "その本、徳島大学図書館で買いますよ",
+  "description": "Amazonで見ている本を、徳島大学附属図書館に購入リクエスト",
   "version": "1.0",
   "manifest_version": 3,
   "content_scripts": [
