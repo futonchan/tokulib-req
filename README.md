@@ -22,8 +22,8 @@ Chrome右上「...」→「その他のツール」→「拡張機能」→「Am
 
 受取館(常三島 or 蔵本)と通信欄の初期状態を変更できます。
 
-![uketori](uketori.jpg)
 ![setting](defaultSetting.jpg)
+![uketori](uketori.jpg)
 
 設定編集後、「保存」ボタンで保存されます。
 
