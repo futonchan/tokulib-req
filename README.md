@@ -1,7 +1,7 @@
 # 概要
 「Amazonの本、徳島大学図書館で買いますよ」は、Amazonで今見ている本を徳島大学図書館へ購入リクエストを送るGoogle Chromeの拡張機能です。
 
-![demo](output.gif)
+![demo](img/output.gif)
 
 Amazonに記載している本の情報が、購入リクエストページにある以下すべてのフォームへ自動入力されます。
 - 書名
@@ -22,8 +22,8 @@ Chrome右上「...」→「その他のツール」→「拡張機能」→「Am
 
 受取館(常三島 or 蔵本)と通信欄の初期状態を変更できます。
 
-![setting](defaultSetting.jpg)
-![uketori](uketori.jpg)
+![setting](img/defaultSetting.jpg)
+![uketori](img/uketori.jpg)
 
 設定編集後、「保存」ボタンで保存されます。
 
