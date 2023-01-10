@@ -13,7 +13,7 @@ Amazonに記載している本の情報が、購入リクエストページに�
 - 通信欄
 
 # 使い方
-1. Chrome拡張機能ページでインストール(ストア申請中)
+1. [Chrome拡張機能ページ](https://chrome.google.com/webstore/detail/amazon%E3%81%AE%E6%9C%AC%E3%80%81%E5%BE%B3%E5%B3%B6%E5%A4%A7%E5%AD%A6%E5%9B%B3%E6%9B%B8%E9%A4%A8%E3%81%A7%E8%B2%B7%E3%81%84%E3%81%BE%E3%81%99%E3%82%88/idbofpbgnkbiidapkbpppeinagoglaaf)でインストール
 2. Amazon内の本の商品ページの価格欄の下の「🏫徳島大学図書館で購入する」リンクをクリック。
 3. 本の情報が自動入力された購入リクエストフォームが開きます。
 
