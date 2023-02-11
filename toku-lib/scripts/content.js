@@ -9,7 +9,8 @@ if (openedUrl.startsWith("https://www.amazon.co.jp/")) {
             // 本情報読み取り
             let bookInfo = {};
             bookInfo.title = document.getElementById("productTitle").innerText;
-            bookInfo.author = document.getElementsByClassName("contributorNameID")[0].innerText;
+            const authors = document.title.split("|")[1].trim().split(",");
+            bookInfo.author = authors[0]; // 先頭の著者名のみ
             bookInfo.asin = document.getElementById('ASIN').value;
         
             // 登録情報部分
