@@ -3,8 +3,12 @@
   "description": "Amazonで見ている本を、徳島大学附属図書館に購入リクエスト",
   "version": "1.0",
   "manifest_version": 3,
+  "background": {
+    "service_worker": "scripts/background.js"
+  },
   "content_scripts": [
     {
+      "css": ["style.css"],
       "js": ["scripts/content.js"],
       "matches": [
         "https://www.amazon.co.jp/*",
@@ -13,7 +17,7 @@
     }
   ],
   "permissions": [
-    "storage"
+    "storage", "tabs"
   ],
   "options_page": "options.html",
   "icons": {

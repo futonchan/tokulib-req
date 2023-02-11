@@ -1,19 +1,68 @@
 const openedUrl = location.href
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    checkBookSearchResponse(message); // 蔵書検索APIから返された値を見る
+});
+
+function checkBookSearchResponse(bookSearchResponse) {
+    const books = bookSearchResponse.books;
+    const isContinue = bookSearchResponse.continue;
+    const isbn = Object.keys(books)[0]; // ['4834000826']
+    if (isContinue == 1) {
+        const sessionId = bookSearchResponse.session;
+        setTimeout(bookSearch, 2500, isbn, sessionId); // ポーリングでAPI叩く
+    } else if (isContinue == 0) {
+        console.log(isContinue);
+        // Amazonにリンク挿入
+        const tokuLibLink = document.createElement("div");
+        tokuLibLink.id = "tokuLibLink";
+        const systemid = "Univ_Tokushima";
+        const libkey = books[isbn][systemid]["libkey"];
+        const existBookCount = Object.values(libkey).length;
+        console.log(existBookCount)
+        if (existBookCount > 0) {
+            tokuLibLink.innerHTML = "<s>🏫この本を徳島大学図書館でリクエスト</s><br>※すでに図書館にあるためリクエストできません"
+        }
+        else {
+            // リンクに本情報クエリ文字列を追加
+            const bookInfoQuery = new URLSearchParams(bookInfo).toString();
+            const bookInfoUrl = "https://opac.lib.tokushima-u.ac.jp/opac/user/purchase_requests/new?" + bookInfoQuery
+            tokuLibLink.innerHTML = `<a href=${bookInfoUrl}>🏫この本を徳島大学図書館でリクエスト</a>`;
+        }
+        tokuLibLink.innerHTML += `<span class="calilLink"> <a href="https://calil.jp/book/${isbn}" target="_blank">カーリルLink</a></span>`
+        const mediaMatrix = document.getElementById("MediaMatrix");
+        mediaMatrix.insertAdjacentElement("afterend", tokuLibLink);
+    }
+}
+
+function bookSearch(isbn="4834000826", sessionId=null){
+    // 蔵書検索API用のパラメータを用意する
+    let bookSearchParam = {}
+    bookSearchParam.messageType = "bookSearch";
+    bookSearchParam.sessionId = sessionId;
+    bookSearchParam.appkey = "e2a19f047728db91068c9cb37bf9adf0";
+    bookSearchParam.isbn = isbn.replace(/[^0-9]/g, "");
+    bookSearchParam.systemid = "Univ_Tokushima"; // Issue #6 他の大学にも対応したい
+    // background.js にメッセージを送る
+    chrome.runtime.sendMessage(bookSearchParam);
+}
+
 // AmazonのURL
+let bookInfo = {};
 if (openedUrl.startsWith("https://www.amazon.co.jp/")) {
     const subBar = document.getElementById("nav-subnav")
     if (subBar) {
         const productAttribute = subBar.getAttribute("data-category");
+
         // 本ジャンル
         if (productAttribute == "books" && document.getElementById("productTitle")){
             // 本情報読み取り
-            let bookInfo = {};
             bookInfo.title = document.getElementById("productTitle").innerText;
             const authors = document.title.split("|")[1].trim().split(",");
             bookInfo.author = authors[0]; // 先頭の著者名のみ
             bookInfo.asin = document.getElementById('ASIN').value;
         
-            // 登録情報部分
+            // 登録情報部分 
             const detailWrapper = document.getElementById("detailBulletsWrapper_feature_div");
             if (detailWrapper) {
                 for (const item of detailWrapper.getElementsByClassName("a-list-item")) {
@@ -23,15 +72,7 @@ if (openedUrl.startsWith("https://www.amazon.co.jp/")) {
                     else if (item.innerHTML.includes("ISBN-13")) bookInfo.isbn13 = item.children[1].innerText;
                 }
             }
-            // Amazonにリンク挿入
-            const tokuLibLink = document.createElement("div");
-            tokuLibLink.id = "tokuLibLink";
-            // リンクに本情報クエリ文字列を追加
-            const bookInfoQuery = new URLSearchParams(bookInfo).toString();
-            const bookInfoUrl = "https://opac.lib.tokushima-u.ac.jp/opac/user/purchase_requests/new?" + bookInfoQuery
-            tokuLibLink.innerHTML = `<a href=${bookInfoUrl}>🏫この本を徳島大学図書館でリクエスト</a>`;
-            const mediaMatrix = document.getElementById("MediaMatrix");
-            mediaMatrix.insertAdjacentElement("afterend", tokuLibLink)
+            bookSearch(isbn = bookInfo.isbn10); // return 
         }
     }
 }
